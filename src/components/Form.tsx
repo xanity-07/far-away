@@ -18,9 +18,14 @@ const Form = ({ setItems }: Props) => {
       quantity: quantity,
       packed: false,
     };
-    setItems((preItems) => [...preItems, newItem]);
-    setInput('');
-    setQuantity(1);
+
+    if (newItem.description === '') {
+      return;
+    } else {
+      setItems((preItems) => [...preItems, newItem]);
+      setInput('');
+      setQuantity(1);
+    }
   };
 
   return (

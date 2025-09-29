@@ -15,7 +15,7 @@ const PackingList = ({ items, setItems }: Props) => {
     const checkedItem = items.map((item) =>
       item.id === id ? { ...item, packed: !item.packed } : item
     );
-
+    console.log(id);
     setItems(checkedItem);
   };
 
@@ -46,6 +46,7 @@ const Item = ({ singleItem, handleDelete, handleCheckedItem }: ItemType) => {
     <li>
       <input
         type='checkbox'
+        checked={singleItem.packed}
         onChange={() => handleCheckedItem(singleItem.id)}
       />
       <span style={singleItem.packed ? { textDecoration: 'line-through' } : {}}>
