@@ -12,7 +12,7 @@ function App() {
       <Logo />
       <Form setItems={setItems} />
       <PackingList items={items} setItems={setItems} />
-      <Stats />
+      <Stats items={items} />
     </div>
   );
 }
