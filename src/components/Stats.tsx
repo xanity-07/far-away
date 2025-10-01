@@ -5,14 +5,19 @@ type Props = {
 };
 
 const Stats = ({ items }: Props) => {
+  if (!items.length) {
+    return (
+      <span className='stats'>
+        <em>Start Adding Items To Your List! 🫡</em>
+      </span>
+    );
+  }
   const numItems = items.length;
-  const packedItems = items
-    .map((item) => item)
-    .filter((item) => item.packed === true);
+  const packedItems = items.filter((item) => item.packed).length;
 
-  const percentagePackedItems = Math.trunc(
-    (packedItems.length / numItems) * 100
-  );
+  const percentagePackedItems = numItems
+    ? Math.trunc((packedItems / numItems) * 100)
+    : 0;
 
   const isFullyPacked = percentagePackedItems === 100;
 

@@ -4,3 +4,5 @@ export type Items = {
   quantity: number;
   packed: boolean;
 };
+
+export type SortingValues = 'input' | 'description' | 'packed';
