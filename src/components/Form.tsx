@@ -2,24 +2,33 @@ import { useState } from 'react';
 import type { Items } from '../types';
 
 type Props = {
-  setItems: React.Dispatch<React.SetStateAction<Items[]>>;
+  onAddItem: (item: Items) => void;
 };
 
-const Form = ({ setItems }: Props) => {
+const Form = ({ onAddItem }: Props) => {
   const [input, setInput] = useState<string>('');
   const [quantity, setQuantity] = useState<number>(1);
+  const [isInvalidInput, setIsInvalidInput] = useState<boolean>(false);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     const newItem: Items = {
       id: Math.random() * 432,
       description: input,
       quantity: quantity,
       packed: false,
     };
-    if (!input) return;
-    setItems((preItems) => [...preItems, newItem]);
+
+    if (!input) {
+      setIsInvalidInput(true);
+      return;
+    }
+    if (/^\d+$/.test(input)) {
+      setIsInvalidInput(true);
+      setInput('');
+      return;
+    }
+    onAddItem(newItem);
     setInput('');
     setQuantity(1);
   };
@@ -38,6 +47,7 @@ const Form = ({ setItems }: Props) => {
         ))}
       </select>
       <input
+        style={isInvalidInput ? { border: '2px solid red' } : {}}
         type='text'
         placeholder='Add item...'
         value={input}
